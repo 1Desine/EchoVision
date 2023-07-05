@@ -1,0 +1,98 @@
+{
+    "name": "PlayerInputActions",
+    "maps": [
+        {
+            "name": "FreeFly",
+            "id": "a45e8ccc-582d-495b-902f-0d8da5efd5c4",
+            "actions": [
+                {
+                    "name": "Camera",
+                    "type": "Value",
+                    "id": "6092f4ea-4ac9-43c3-901b-9211ae2465c0",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "8652a1fc-e1be-4123-8a3e-58f4592ab8d6",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d43618aa-c2f0-45b3-82b1-c5aaf361b9bc",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "9cac032c-b640-4646-a6da-032e363f791f",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "7765e932-2ee4-41e7-a0b3-22a03e05fea0",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "e9f9bcef-1662-4e21-9b52-5188d2c69193",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "bb5a2375-f0cc-4ab3-b8e7-e7dc2ede9c2a",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "2ba1fe5c-607d-4961-ae09-62166e7df6d6",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

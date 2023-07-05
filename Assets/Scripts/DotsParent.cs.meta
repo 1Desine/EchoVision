@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: cecd9b27c1fad6a45ade46c732b6863e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - dotImage: {fileID: 8112191646942782719, guid: 6891c7ac056535f41b6a21fb38a9ca76,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
