@@ -28,7 +28,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""a45e8ccc-582d-495b-902f-0d8da5efd5c4"",
             ""actions"": [
                 {
-                    ""name"": ""Camera"",
+                    ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""6092f4ea-4ac9-43c3-901b-9211ae2465c0"",
                     ""expectedControlType"": ""Vector2"",
@@ -40,7 +40,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""8652a1fc-e1be-4123-8a3e-58f4592ab8d6"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Vector3"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -52,16 +52,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""id"": ""d43618aa-c2f0-45b3-82b1-c5aaf361b9bc"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": """",
+                    ""processors"": ""InvertVector2(invertX=false)"",
                     ""groups"": """",
-                    ""action"": ""Camera"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""9cac032c-b640-4646-a6da-032e363f791f"",
-                    ""path"": ""2DVector"",
+                    ""name"": ""3D Vector"",
+                    ""id"": ""d7824307-b343-41a6-affb-dd2e0325492d"",
+                    ""path"": ""3DVector(mode=1)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -71,7 +71,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""7765e932-2ee4-41e7-a0b3-22a03e05fea0"",
+                    ""id"": ""dada2a78-ed88-4d3d-a587-8f1c505d24ab"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -82,7 +82,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""e9f9bcef-1662-4e21-9b52-5188d2c69193"",
+                    ""id"": ""19ee4442-ad2c-4031-9781-9839724bb3e3"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -93,7 +93,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""bb5a2375-f0cc-4ab3-b8e7-e7dc2ede9c2a"",
+                    ""id"": ""5696c3a4-559b-4aab-80da-57727f9d2ec7"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -104,8 +104,30 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""2ba1fe5c-607d-4961-ae09-62166e7df6d6"",
+                    ""id"": ""f0a40c5b-667a-4450-866d-8d7206558850"",
                     ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""forward"",
+                    ""id"": ""d9f8618c-b240-4ee8-b571-75fa21369b44"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""backward"",
+                    ""id"": ""08ca9d11-84a4-4029-88d1-6481ff7be391"",
+                    ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -120,7 +142,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 }");
         // FreeFly
         m_FreeFly = asset.FindActionMap("FreeFly", throwIfNotFound: true);
-        m_FreeFly_Camera = m_FreeFly.FindAction("Camera", throwIfNotFound: true);
+        m_FreeFly_Look = m_FreeFly.FindAction("Look", throwIfNotFound: true);
         m_FreeFly_Move = m_FreeFly.FindAction("Move", throwIfNotFound: true);
     }
 
@@ -183,13 +205,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // FreeFly
     private readonly InputActionMap m_FreeFly;
     private List<IFreeFlyActions> m_FreeFlyActionsCallbackInterfaces = new List<IFreeFlyActions>();
-    private readonly InputAction m_FreeFly_Camera;
+    private readonly InputAction m_FreeFly_Look;
     private readonly InputAction m_FreeFly_Move;
     public struct FreeFlyActions
     {
         private @PlayerInputActions m_Wrapper;
         public FreeFlyActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Camera => m_Wrapper.m_FreeFly_Camera;
+        public InputAction @Look => m_Wrapper.m_FreeFly_Look;
         public InputAction @Move => m_Wrapper.m_FreeFly_Move;
         public InputActionMap Get() { return m_Wrapper.m_FreeFly; }
         public void Enable() { Get().Enable(); }
@@ -200,9 +222,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_FreeFlyActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_FreeFlyActionsCallbackInterfaces.Add(instance);
-            @Camera.started += instance.OnCamera;
-            @Camera.performed += instance.OnCamera;
-            @Camera.canceled += instance.OnCamera;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
@@ -210,9 +232,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IFreeFlyActions instance)
         {
-            @Camera.started -= instance.OnCamera;
-            @Camera.performed -= instance.OnCamera;
-            @Camera.canceled -= instance.OnCamera;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
@@ -235,7 +257,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public FreeFlyActions @FreeFly => new FreeFlyActions(this);
     public interface IFreeFlyActions
     {
-        void OnCamera(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
     }
 }

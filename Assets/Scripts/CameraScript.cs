@@ -13,6 +13,8 @@ public class CameraScript : MonoBehaviour {
     private float fov = 50;
     private float viewDistance = 1000;
 
+    [SerializeField] private int amountOfDots;
+
     private void Awake() {
         if(Instance != null) {
             Debug.Log("CameraScript - more then one Instance");
@@ -21,25 +23,22 @@ public class CameraScript : MonoBehaviour {
     }
 
 
-    private void Update() {
-        raycastDirection = transform.forward;
+    private void FixedUpdate() {
 
-        raycastDirection += new Vector3(
-            Random.Range(-spreadVector.x, spreadVector.x),
-            Random.Range(-spreadVector.y, spreadVector.y),
-            Random.Range(-spreadVector.z, spreadVector.z)
-            );
+        for(int i = 0; i < amountOfDots; i++) {
+            raycastDirection = transform.forward;
 
+            raycastDirection += new Vector3(
+                Random.Range(-spreadVector.x, spreadVector.x),
+                Random.Range(-spreadVector.y, spreadVector.y),
+                Random.Range(-spreadVector.z, spreadVector.z)
+                );
+            raycastDirection.Normalize();
 
-
-        //randomDirection = Quaternion.AngleAxis(Random.Range(-fov/2,fov/2), RotationAxis) * SourceVector;
-
-        raycastDirection.Normalize();
-
-        Debug.DrawRay(transform.position, raycastDirection);
-        if(Physics.Raycast(transform.position, raycastDirection, out RaycastHit hitInfo, viewDistance)) {
-
-            SpawnDot(hitInfo.point);
+            Debug.DrawRay(transform.position, raycastDirection);
+            if(Physics.Raycast(transform.position, raycastDirection, out RaycastHit hitInfo, viewDistance)) {
+                SpawnDot(hitInfo.point);
+            }
         }
 
     }

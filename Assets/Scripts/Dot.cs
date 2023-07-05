@@ -8,7 +8,7 @@ public class Dot : MonoBehaviour {
 
 
 
-    void Update() {
+    void FixedUpdate() {
         lifeTime -= Time.deltaTime;
         if(lifeTime < 0 ) {
             DestroySelf();
